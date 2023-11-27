@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import { auth } from "../../stores/auth";
@@ -31,12 +31,16 @@
     }
 
     $: userInputValid = validateInputs(email, password);
+
+    async function handleSubmit(this: HTMLFormElement, event: unknown): Promise<void> {
+        // TODO: handle form submission here
+    }
 </script>
 
 <div class="wrapper">
     <main>
         <h1 class="centered">Login</h1>
-        <form>
+        <form method="POST" on:submit|preventDefault={handleSubmit}>
             <label for="email">Email</label>
             <input
                 type="email"
