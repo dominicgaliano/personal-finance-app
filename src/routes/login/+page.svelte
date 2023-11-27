@@ -34,6 +34,7 @@
 
     async function handleSubmit(this: HTMLFormElement, event: unknown): Promise<void> {
         // TODO: handle form submission here
+        alert("Not implemented yet");
     }
 </script>
 
