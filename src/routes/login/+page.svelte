@@ -17,7 +17,7 @@
     let password = "";
     let passwordError = false;
 
-    function validateInputs(email, password) {
+    function validateInputs(email: string, password: string) {
         // TODO: implement more validation and error handling
         if (email.length < 1) {
             emailError = true;
