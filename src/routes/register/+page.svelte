@@ -15,37 +15,44 @@
     let emailError = false;
 
     let password = "";
+    let confirmPassword = "";
     let passwordError = false;
 
-    function validateInputs(email: string, password: string) {
+    function validateInputs(
+        email: string,
+        password: string,
+        confirmPassword: string,
+    ) {
         // TODO: implement more validation and error handling
         if (email.length < 1) {
             emailError = true;
             return false;
         }
-        if (password.length < 1) {
+        if (
+            password.length < 1 ||
+            confirmPassword.length < 1 ||
+            password !== confirmPassword
+        ) {
             passwordError = true;
             return false;
         }
         return true;
     }
 
-    $: userInputValid = validateInputs(email, password);
+    $: userInputValid = validateInputs(email, password, confirmPassword);
 
-    async function handleSubmit(this: HTMLFormElement, event: unknown): Promise<void> {
+    async function handleSubmit(
+        this: HTMLFormElement,
+        event: unknown,
+    ): Promise<void> {
         // TODO: handle form submission here
-        alert("Not implemented yet");
-    }
-
-    async function handleResetPassword(this: HTMLFormElement, event: unknown): Promise<void> {
-        // TODO: handle reset password request here 
         alert("Not implemented yet");
     }
 </script>
 
 <div class="wrapper">
     <main>
-        <h1 class="centered">Login</h1>
+        <h1 class="centered">Register</h1>
         <form method="POST" on:submit|preventDefault={handleSubmit}>
             <label for="email">Email</label>
             <input
@@ -71,9 +78,20 @@
                 autocomplete="new-password"
                 bind:value={password}
             />
-            <button type="submit" disabled={!userInputValid}>Login</button>
-            <button type="reset" on:click={handleResetPassword}>Forgot Password?</button>
-            <a href="/register">New user? Register.</a>
+            <label for="confirm-password">Password</label>
+            <input
+                type="password"
+                id="confirm-password"
+                name="confirm-password"
+                placeholder="Conirm Password"
+                required
+                aria-invalid={passwordError}
+                aria-describedby={passwordError ? "password-error" : null}
+                autocomplete="new-password"
+                bind:value={confirmPassword}
+            />
+            <button type="submit" disabled={!userInputValid}>Register</button>
+            <a href="/login">Returning user? Login.</a>
         </form>
     </main>
 </div>
