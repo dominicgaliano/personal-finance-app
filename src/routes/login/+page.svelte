@@ -17,6 +17,8 @@
     let password = "";
     let passwordError = false;
 
+    let rememberMe = false;
+
     function validateInputs(email: string, password: string) {
         // TODO: implement more validation and error handling
         if (email.length < 1) {
@@ -31,6 +33,11 @@
     }
 
     $: userInputValid = validateInputs(email, password);
+
+    // TODO: remove once implemented
+    $: if (rememberMe) {
+        alert("Please note, this feature is not yet implemented")
+    }
 
     async function handleSubmit(this: HTMLFormElement, event: unknown): Promise<void> {
         // TODO: handle form submission here
@@ -71,8 +78,19 @@
                 autocomplete="new-password"
                 bind:value={password}
             />
+            <label for="remember-me">
+                <input
+                    type="checkbox"
+                    id="remember-me"
+                    name="remember-me"
+                    bind:checked={rememberMe}
+                />
+                Remember me
+            </label>
             <button type="submit" disabled={!userInputValid}>Login</button>
-            <button type="reset" on:click={handleResetPassword}>Forgot Password?</button>
+            <button type="reset" on:click={handleResetPassword}
+                >Forgot Password?</button
+            >
             <a href="/register">New user? Register.</a>
         </form>
     </main>
