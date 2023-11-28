@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import authStore from "../../stores/authStore";
+    import { handleSubmit } from "./utils";
 
     onMount(() => {
         authStore.subscribe((state) => {
@@ -40,14 +41,6 @@
     }
 
     $: userInputValid = validateInputs(email, password, confirmPassword);
-
-    async function handleSubmit(
-        this: HTMLFormElement,
-        event: unknown,
-    ): Promise<void> {
-        // TODO: handle form submission here
-        alert("Not implemented yet");
-    }
 </script>
 
 <div class="wrapper">
