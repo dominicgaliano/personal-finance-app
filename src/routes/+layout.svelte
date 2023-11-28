@@ -1,14 +1,19 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { initFirebase } from "$lib/client/firebase";
-    import { auth as authStore } from "../stores/auth";
-    import { onAuthStateChanged } from "firebase/auth";
+    import authStore from "../stores/authStore";
     // TODO: convert to conditional import
     import AuthStatus from "../components/AuthStatus.svelte";
 
     onMount(() => {
         const { auth } = initFirebase();
-        onAuthStateChanged(auth, authStore.set);
+        auth.onAuthStateChanged((user) => {
+            authStore.set({
+                isLoggedIn: user !== null,
+                user: user ?? undefined,
+                firebaseControlled: true,
+            });
+        });
     });
 </script>
 
