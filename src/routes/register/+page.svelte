@@ -3,13 +3,13 @@
     import { goto } from "$app/navigation";
     import authStore from "../../stores/authStore";
 
-    // onMount(() => {
-    //     auth.subscribe((user) => {
-    //         if (user) {
-    //             goto("/");
-    //         }
-    //     });
-    // });
+    onMount(() => {
+        authStore.subscribe((state) => {
+            if (state.user) {
+                goto("/");
+            }
+        });
+    });
 
     let email = "";
     let emailError = false;
