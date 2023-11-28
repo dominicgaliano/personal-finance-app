@@ -15,6 +15,10 @@
     {:else}
         No one is authenticated
     {/if}
+    <div>
+        TEMP:
+        {JSON.stringify(authStatus)}
+    </div>
 </div>
 
 <style>
