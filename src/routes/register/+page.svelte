@@ -1,15 +1,15 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
-    import { auth } from "../../stores/auth";
+    import authStore from "../../stores/authStore";
 
-    onMount(() => {
-        auth.subscribe((user) => {
-            if (user) {
-                goto("/");
-            }
-        });
-    });
+    // onMount(() => {
+    //     auth.subscribe((user) => {
+    //         if (user) {
+    //             goto("/");
+    //         }
+    //     });
+    // });
 
     let email = "";
     let emailError = false;
