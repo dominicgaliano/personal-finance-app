@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import authStore from "../../stores/authStore";
-    import { handleSubmit } from "./utils";
+    import { handleResetPassword, handleSubmit } from "./utils";
 
     onMount(() => {
         authStore.subscribe((state) => {
