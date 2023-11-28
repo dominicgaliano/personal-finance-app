@@ -2,6 +2,7 @@
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import { auth } from "../../stores/auth";
+    import { handleSubmit, handleResetPassword } from "./authUtils";
 
     onMount(() => {
         auth.subscribe((user) => {
@@ -36,17 +37,7 @@
 
     // TODO: remove once implemented
     $: if (rememberMe) {
-        alert("Please note, this feature is not yet implemented")
-    }
-
-    async function handleSubmit(this: HTMLFormElement, event: unknown): Promise<void> {
-        // TODO: handle form submission here
-        alert("Not implemented yet");
-    }
-
-    async function handleResetPassword(this: HTMLFormElement, event: unknown): Promise<void> {
-        // TODO: handle reset password request here 
-        alert("Not implemented yet");
+        alert("Please note, this feature is not yet implemented");
     }
 </script>
 
