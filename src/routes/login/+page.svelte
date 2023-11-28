@@ -2,7 +2,7 @@
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
     import authStore from "../../stores/authStore";
-    import { handleSubmit, handleResetPassword } from "./authUtils";
+    import { handleSubmit } from "./utils";
 
     onMount(() => {
         authStore.subscribe((state) => {
@@ -39,6 +39,7 @@
     $: if (rememberMe) {
         alert("Please note, this feature is not yet implemented");
     }
+
 </script>
 
 <div class="wrapper">
