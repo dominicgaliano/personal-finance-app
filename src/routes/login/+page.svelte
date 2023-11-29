@@ -44,11 +44,6 @@
     }
 
     $: userInputValid = softValidate(email, password);
-
-    // TODO: remove once implemented
-    $: if (rememberMe) {
-        alert("Please note, this feature is not yet implemented");
-    }
 </script>
 
 <div class="wrapper">
