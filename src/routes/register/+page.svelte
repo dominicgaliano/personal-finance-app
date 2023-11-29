@@ -1,15 +1,13 @@
 <script lang="ts">
     import { onMount } from "svelte";
     import { goto } from "$app/navigation";
-    import authStore from "../../stores/authStore";
+    import { auth } from "../../stores/auth";
     import { handleSubmit } from "./utils";
 
     onMount(() => {
-        authStore.subscribe((state) => {
-            if (state.user) {
-                goto("/");
-            }
-        });
+        if ($auth) {
+            goto("/");
+        }
     });
 
     // TODO: Investigate, I have no idea how this works

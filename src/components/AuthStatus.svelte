@@ -1,23 +1,16 @@
 <script lang="ts">
-    import authStore from "../stores/authStore";
-    import { onDestroy } from "svelte";
-    import type { authStoreState } from "../stores/authStore.d";
-
-    let authStatus: authStoreState;
-    const unsubscribe = authStore.subscribe((value) => (authStatus = value));
-
-    onDestroy(unsubscribe);
+    import { auth } from "../stores/auth";
 </script>
 
 <div class="fixed-box">
-    {#if authStatus.isLoggedIn}
-        Authenticated as <span class="font-bold">{$authStore}</span>
+    {#if $auth}
+        Authenticated as <span class="font-bold text-black">{$auth.email}</span>
     {:else}
         No one is authenticated
     {/if}
     <div>
         TEMP:
-        {JSON.stringify(authStatus)}
+        {JSON.stringify($auth)}
     </div>
 </div>
 

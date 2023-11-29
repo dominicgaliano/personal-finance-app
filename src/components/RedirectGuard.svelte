@@ -1,13 +1,13 @@
 <script lang="ts">
-  import { goto } from "$app/navigation";
-  import authStore from "../stores/authStore";
+    import { goto } from "$app/navigation";
+    import { onMount } from "svelte";
+    import { auth } from "../stores/auth";
 
-  export let redirectPath: string;
+    export let redirectPath: string;
 
-  authStore.subscribe(async ({ isLoggedIn, firebaseControlled }) => {
-    if (!isLoggedIn && firebaseControlled) {
-      await goto(redirectPath || "/login");
-    }
-  });
+    onMount(() => {
+        if (!$auth) {
+            goto(redirectPath || "/");
+        }
+    });
 </script>
-

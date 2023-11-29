@@ -1,6 +1,6 @@
 import { SESSION_COOKIE_NAME } from '$lib/constants';
 import { fail } from '@sveltejs/kit';
-import type { Actions } from './$types';
+i port type { Actions } from './$types';
 
 export const actions: Actions = {
 	default: async ({ request, cookies }) => {
