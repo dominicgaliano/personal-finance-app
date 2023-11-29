@@ -21,21 +21,18 @@ async function login(
       status: 400,
       data: { message: "Email or password are missing" },
     };
-  }
+ }
 
   const auth = getAuth();
 
   try {
-
     await auth.setPersistence(
       rememberMe ? browserLocalPersistence : browserSessionPersistence,
     );
     // TODO: add email enumeration protection
     const credential = await signInWithEmailAndPassword(auth, email, password);
     return { type: "success", status: 200, data: { credential } };
-
   } catch (error: unknown) {
-
     let errorMessage = "";
     if (typeof error === "string") {
       errorMessage = error;
@@ -45,7 +42,6 @@ async function login(
       errorMessage = "Unknown error";
     }
     return { type: "failure", status: 400, data: { message: errorMessage } };
-
   }
 }
 
