@@ -2,9 +2,6 @@ import { applyAction, deserialize } from "$app/forms";
 import { invalidateAll } from "$app/navigation";
 import { login } from "$lib/client/authUtils";
 
-// async function handleSubmit(event: {
-//   currentTarget: EventTarget & HTMLFormElement;
-// }): Promise<void> {
 async function handleSubmit(
   this: HTMLFormElement,
   event: unknown,

@@ -2,10 +2,11 @@ import { applyAction, deserialize } from "$app/forms";
 import { invalidateAll } from "$app/navigation";
 import { register } from "$lib/client/authUtils";
 
-async function handleSubmit(event: {
-  currentTarget: EventTarget & HTMLFormElement;
-}): Promise<void> {
-  const formData = new FormData(event.currentTarget);
+async function handleSubmit(
+  this: HTMLFormElement,
+  event: unknown,
+): Promise<void> {
+  const formData = new FormData(this);
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
@@ -31,7 +32,7 @@ async function handleSubmit(event: {
 
     // respond to form
    
-    const response = await fetch(event.currentTarget.action, {
+    const response = await fetch(this.action, {
       method: "POST",
       body: formData,
     });
