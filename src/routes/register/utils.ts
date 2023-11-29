@@ -30,14 +30,19 @@ async function handleSubmit(event: {
     formData.set("token", await user.getIdToken());
 
     // respond to form
+   
     const response = await fetch(event.currentTarget.action, {
       method: "POST",
       body: formData,
     });
+
     const result = deserialize(await response.text());
     if (result.type === "success") {
       await invalidateAll();
     }
+    
+    applyAction(result);
+
   } catch (error) {
     // TODO: add HTTP error number
     applyAction({ type: "error", error: error });

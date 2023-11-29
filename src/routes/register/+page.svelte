@@ -12,6 +12,9 @@
         });
     });
 
+    // TODO: Investigate, I have no idea how this works
+    export let form;
+
     let email = "";
     let emailError = false;
 
@@ -85,6 +88,11 @@
             />
             <button type="submit" disabled={!userInputValid}>Register</button>
             <a href="/login">Returning user? Login.</a>
+            {#if form && !form.success && form.message}
+                <div class="error-text">
+                    {form.message}
+                </div>
+            {/if}
         </form>
     </main>
 </div>
