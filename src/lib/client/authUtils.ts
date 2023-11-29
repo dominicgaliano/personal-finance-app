@@ -4,11 +4,14 @@ import {
   getAuth,
   signInWithEmailAndPassword,
   type UserCredential,
+  browserLocalPersistence,
+  browserSessionPersistence,
 } from "firebase/auth";
 
 async function login(
   email: string | undefined,
   password: string | undefined,
+  rememberMe: boolean,
 ): Promise<
   ActionResult<{ credential: UserCredential }, Record<string, string>>
 > {
@@ -23,10 +26,16 @@ async function login(
   const auth = getAuth();
 
   try {
+
+    await auth.setPersistence(
+      rememberMe ? browserLocalPersistence : browserSessionPersistence,
+    );
     // TODO: add email enumeration protection
     const credential = await signInWithEmailAndPassword(auth, email, password);
     return { type: "success", status: 200, data: { credential } };
+
   } catch (error: unknown) {
+
     let errorMessage = "";
     if (typeof error === "string") {
       errorMessage = error;
@@ -36,6 +45,7 @@ async function login(
       errorMessage = "Unknown error";
     }
     return { type: "failure", status: 400, data: { message: errorMessage } };
+
   }
 }
 
@@ -70,7 +80,11 @@ async function register(
 
   try {
     // TODO: add email enumeration protection
-    const credential = await createUserWithEmailAndPassword(auth, email, password);
+    const credential = await createUserWithEmailAndPassword(
+      auth,
+      email,
+      password,
+    );
     return { type: "success", status: 200, data: { credential } };
   } catch (error: unknown) {
     let errorMessage = "";
@@ -84,5 +98,14 @@ async function register(
     return { type: "failure", status: 400, data: { message: errorMessage } };
   }
 }
+
+// async function setAuthPersistence(rememberMe: boolean): Promise<void> {
+//   const auth = getAuth();
+//   if (rememberMe) {
+//     await auth.setPersistence("local");
+//   } else {
+//     await auth.setPersistence("session");
+//   }
+// }
 
 export { login, register };

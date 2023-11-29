@@ -2,17 +2,22 @@ import { applyAction, deserialize } from "$app/forms";
 import { invalidateAll } from "$app/navigation";
 import { login } from "$lib/client/authUtils";
 
-async function handleSubmit(event: {
-  currentTarget: EventTarget & HTMLFormElement;
-}): Promise<void> {
-  const formData = new FormData(event.currentTarget);
+// async function handleSubmit(event: {
+//   currentTarget: EventTarget & HTMLFormElement;
+// }): Promise<void> {
+async function handleSubmit(
+  this: HTMLFormElement,
+  event: unknown,
+): Promise<void> {
+  const formData = new FormData(this);
 
   const email = formData.get("email") as string;
   const password = formData.get("password") as string;
+  const rememberMe = formData.get("remember-me") === "on";
 
   try {
     // login user
-    const loginResponse = await login(email, password);
+    const loginResponse = await login(email, password, rememberMe);
 
     if (loginResponse.type !== "success") {
       applyAction(loginResponse);
@@ -29,7 +34,7 @@ async function handleSubmit(event: {
     formData.set("token", await user.getIdToken());
 
     // respond to form
-    const response = await fetch(event.currentTarget.action, {
+    const response = await fetch(this.action, {
       method: "POST",
       body: formData,
     });
@@ -44,5 +49,5 @@ async function handleSubmit(event: {
   }
 }
 
-async function handleResetPassword(event): Promise<void> {}
+async function handleResetPassword(event): Promise<void> { }
 export { handleSubmit, handleResetPassword };

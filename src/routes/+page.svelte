@@ -1,5 +1,6 @@
 <script>
-  import RedirectGuard from "../components/RedirectGuard.svelte";
+    import LogoutButton from "../components/LogoutButton.svelte";
+    import RedirectGuard from "../components/RedirectGuard.svelte";
 </script>
 
 <RedirectGuard redirectPath="/login" />
@@ -7,3 +8,4 @@
 <p>
     Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation
 </p>
+<LogoutButton />
