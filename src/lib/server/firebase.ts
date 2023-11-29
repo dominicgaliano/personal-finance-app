@@ -1,10 +1,12 @@
-import { FIREBASE_SERVICE_ACCOUNT_KEY } from '$env/static/private';
 import admin from 'firebase-admin';
 import type { DecodedIdToken } from 'firebase-admin/lib/auth/token-verifier';
 
+// TODO: make this an absolute path
+// TODO: figure out how to use env variable
+import serviceAccount from '../../../key.json';
+
 const initializeFirebase = () => {
 	if (!admin.apps.length) {
-		const serviceAccount = JSON.parse(FIREBASE_SERVICE_ACCOUNT_KEY);
 		admin.initializeApp({
 			credential: admin.credential.cert(serviceAccount)
 		});
