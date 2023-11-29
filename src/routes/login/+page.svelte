@@ -12,6 +12,9 @@
         });
     });
 
+    // TODO: Investigate, I have no idea how this works
+    export let form;
+
     let email = "";
     let emailError = false;
 
@@ -20,7 +23,14 @@
 
     let rememberMe = false;
 
-    function validateInputs(email: string, password: string) {
+    /**
+     * Determines whether to enable the submit button
+     *
+     * @param email - user email
+     * @param password - user password
+     * @returns boolean - whether the user input is valid
+     */
+    function softValidate(email: string, password: string): boolean {
         // TODO: implement more validation and error handling
         if (email.length < 1) {
             emailError = true;
@@ -33,13 +43,12 @@
         return true;
     }
 
-    $: userInputValid = validateInputs(email, password);
+    $: userInputValid = softValidate(email, password);
 
     // TODO: remove once implemented
     $: if (rememberMe) {
         alert("Please note, this feature is not yet implemented");
     }
-
 </script>
 
 <div class="wrapper">
@@ -84,6 +93,11 @@
                 >Forgot Password?</button
             >
             <a href="/register">New user? Register.</a>
+            {#if form && !form.success && form.message}
+                <div class="error-text">
+                    {form.message}
+                </div>
+            {/if}
         </form>
     </main>
 </div>
@@ -106,5 +120,8 @@
     form > * {
         display: block;
         margin: 1rem;
+    }
+    .error-text {
+        color: red;
     }
 </style>

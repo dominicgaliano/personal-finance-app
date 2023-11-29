@@ -37,6 +37,7 @@ async function handleSubmit(event: {
     if (result.type === "success") {
       await invalidateAll();
     }
+    applyAction(result);
   } catch (error) {
     // TODO: add HTTP error number
     applyAction({ type: "error", error: error });
