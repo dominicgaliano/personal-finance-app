@@ -6,6 +6,7 @@ import {
   type UserCredential,
   browserLocalPersistence,
   browserSessionPersistence,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 
 async function login(
@@ -95,13 +96,37 @@ async function register(
   }
 }
 
-// async function setAuthPersistence(rememberMe: boolean): Promise<void> {
-//   const auth = getAuth();
-//   if (rememberMe) {
-//     await auth.setPersistence("local");
-//   } else {
-//     await auth.setPersistence("session");
-//   }
-// }
+async function resetPassword(
+  email: string | undefined,
+): Promise<
+  ActionResult<Record<string, string>>
+> {
+  if (!email) {
+    return {
+      type: "failure",
+      status: 400,
+      data: { message: "Email or password are missing" },
+    };
+ }
 
-export { login, register };
+  const auth = getAuth();
+
+  try {
+    // TODO: add email enumeration protection
+    // TODO: specify action code settings
+    await sendPasswordResetEmail(auth, email);
+    return { type: "success", status: 200};
+  } catch (error: unknown) {
+    let errorMessage = "";
+    if (typeof error === "string") {
+      errorMessage = error;
+    } else if (error instanceof Error) {
+      errorMessage = error.message;
+    } else {
+      errorMessage = "Unknown error";
+    }
+    return { type: "failure", status: 400, data: { message: errorMessage } };
+  }
+}
+
+export { login, register, resetPassword };

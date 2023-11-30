@@ -1,15 +1,7 @@
 <script lang="ts">
-    import { onMount } from "svelte";
     import { goto } from "$app/navigation";
-    import { auth } from "../../stores/auth";
-    import { handleResetPassword, handleSubmit } from "./utils";
+    import { handleSubmit } from "./utils";
     import ForceRedirectOnAuth from "../../components/ForceRedirectOnAuth.svelte";
-
-    onMount(() => {
-        if ($auth) {
-            goto("/");
-        }
-    });
 
     // TODO: Investigate, I have no idea how this works
     export let form;
@@ -84,8 +76,11 @@
                 Remember me
             </label>
             <button type="submit" disabled={!userInputValid}>Login</button>
-            <button type="reset" on:click={handleResetPassword}
-                >Forgot Password?</button
+            <button
+                type="reset"
+                on:click={() => {
+                    goto("/reset-password");
+                }}>Forgot Password?</button
             >
             <a href="/register">New user? Register.</a>
             {#if form && !form.success && form.message}

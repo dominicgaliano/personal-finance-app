@@ -46,5 +46,4 @@ async function handleSubmit(
   }
 }
 
-async function handleResetPassword(event): Promise<void> { }
-export { handleSubmit, handleResetPassword };
+export { handleSubmit };

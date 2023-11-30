@@ -1,15 +1,6 @@
 <script lang="ts">
-    import { onMount } from "svelte";
-    import { goto } from "$app/navigation";
-    import { auth } from "../../stores/auth";
     import { handleSubmit } from "./utils";
     import ForceRedirectOnAuth from "../../components/ForceRedirectOnAuth.svelte";
-
-    onMount(() => {
-        if ($auth) {
-            goto("/");
-        }
-    });
 
     // TODO: Investigate, I have no idea how this works
     export let form;
