@@ -27,7 +27,8 @@ export const initFirebase = memoize(() => {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
   if (firebaseConfig.useEmulator) {
-    connectAuthEmulator(auth, import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST);
+    const emulatorHost = import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST || "http://127.0.0.1:9099";
+    connectAuthEmulator(auth, emulatorHost);
   }
   // const analytics = getAnalytics(app);
   return { app, auth, firestore };
