@@ -30,8 +30,12 @@
     <main>
         <h1 class="centered">Reset Password</h1>
         {#if form && form.success}
-            <div>
-                You will receive an email with a link to reset your password.
+            <div class="success">
+                <div>
+                    You will receive an email with a link to reset your
+                    password.
+                </div>
+                <a href="/login">Return to Login.</a>
             </div>
         {:else}
             <form method="POST" on:submit|preventDefault={handleSubmit}>
@@ -77,9 +81,12 @@
     .centered {
         text-align: center;
     }
-    form > * {
+    form > *, .success > * {
         display: block;
         margin: 1rem;
+    }
+    .success > * {
+        text-align: center;
     }
     .error-text {
         color: red;
