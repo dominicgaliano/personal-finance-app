@@ -3,6 +3,7 @@
     import { goto } from "$app/navigation";
     import { auth } from "../../stores/auth";
     import { handleResetPassword, handleSubmit } from "./utils";
+    import ForceRedirectOnAuth from "../../components/ForceRedirectOnAuth.svelte";
 
     onMount(() => {
         if ($auth) {
@@ -44,6 +45,7 @@
     $: userInputValid = softValidate(email, password);
 </script>
 
+<ForceRedirectOnAuth redirectPath="/" />
 <div class="wrapper">
     <main>
         <h1 class="centered">Login</h1>
