@@ -8,8 +8,10 @@ import serviceAccount from "../../../key.json";
 const initializeFirebase = () => {
   if (!admin.apps.length) {
     if (import.meta.env.VITE_FIREBASE_USE_EMULATOR === "true") {
-      console.log('run')
-      process.env["FIREBASE_AUTH_EMULATOR_HOST"] = import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST;
+      const emulatorHost = import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST || "127.0.0.1:9099"
+
+      // note: this env variable must be in the form of 127.0.0.1:9099 (no http://)
+      process.env["FIREBASE_AUTH_EMULATOR_HOST"] = emulatorHost;
     }
 
     admin.initializeApp({

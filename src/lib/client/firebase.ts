@@ -27,7 +27,9 @@ export const initFirebase = memoize(() => {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
   if (firebaseConfig.useEmulator) {
-    const emulatorHost = import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST || "http://127.0.0.1:9099";
+    const emulatorHost = 'http://' + import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST || "http://127.0.0.1:9099";
+
+    // note: connectAuthEmulator takes host in the form of http://127.0.0.1:9099
     connectAuthEmulator(auth, emulatorHost);
   }
   // const analytics = getAnalytics(app);
