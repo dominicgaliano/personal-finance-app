@@ -2,6 +2,7 @@ import { memoize } from "lodash";
 import { initializeApp } from "firebase/app";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
 import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
+import { getFunctions, connectFunctionsEmulator } from "firebase/functions";
 import { browser } from "$app/environment";
 // import { getAnalytics } from "firebase/analytics";
 
@@ -23,9 +24,13 @@ export const initFirebase = memoize(() => {
   if (!browser) {
     throw new Error("Can't use the Firebase client on the server.");
   }
+
   const app = initializeApp(firebaseConfig);
+
   const auth = getAuth(app);
   const firestore = getFirestore(app);
+  const functions = getFunctions(app);
+
   if (firebaseConfig.useEmulator) {
     const authEmulatorHost =
       "http://" + import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST ||
@@ -36,7 +41,13 @@ export const initFirebase = memoize(() => {
     connectFirestoreEmulator(
       firestore,
       import.meta.env.VITE_FIREBASE_EMULATOR_HOST || "127.0.0.1",
-      import.meta.env.VITE_FIREBASE_FIRESTORE_PORT || 8080
+      import.meta.env.VITE_FIREBASE_FIRESTORE_PORT || 8080,
+    );
+
+    connectFunctionsEmulator(
+      functions,
+      import.meta.env.VITE_FIREBASE_EMULATOR_HOST || "127.0.0.1",
+      import.meta.env.VITE_FIREBASE_FUNCTIONS_PORT || 8080,
     );
   }
   // const analytics = getAnalytics(app);
