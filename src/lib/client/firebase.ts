@@ -1,7 +1,7 @@
 import { memoize } from "lodash";
 import { initializeApp } from "firebase/app";
 import { connectAuthEmulator, getAuth } from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
+import { connectFirestoreEmulator, getFirestore } from "firebase/firestore";
 import { browser } from "$app/environment";
 // import { getAnalytics } from "firebase/analytics";
 
@@ -27,10 +27,17 @@ export const initFirebase = memoize(() => {
   const auth = getAuth(app);
   const firestore = getFirestore(app);
   if (firebaseConfig.useEmulator) {
-    const emulatorHost = 'http://' + import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST || "http://127.0.0.1:9099";
-
+    const authEmulatorHost =
+      "http://" + import.meta.env.VITE_FIREBASE_AUTH_EMULATOR_HOST ||
+      "http://127.0.0.1:9099";
     // note: connectAuthEmulator takes host in the form of http://127.0.0.1:9099
-    connectAuthEmulator(auth, emulatorHost);
+    connectAuthEmulator(auth, authEmulatorHost);
+
+    connectFirestoreEmulator(
+      firestore,
+      import.meta.env.VITE_FIREBASE_EMULATOR_HOST || "127.0.0.1",
+      import.meta.env.VITE_FIREBASE_FIRESTORE_PORT || 8080
+    );
   }
   // const analytics = getAnalytics(app);
   return { app, auth, firestore };
