@@ -7,6 +7,9 @@ import {
   browserLocalPersistence,
   browserSessionPersistence,
   sendPasswordResetEmail,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+  deleteUser,
 } from "firebase/auth";
 
 async function login(
@@ -22,7 +25,7 @@ async function login(
       status: 400,
       data: { message: "Email or password are missing" },
     };
- }
+  }
 
   const auth = getAuth();
 
@@ -98,24 +101,26 @@ async function register(
 
 async function resetPassword(
   email: string | undefined,
-): Promise<
-  ActionResult<Record<string, string>>
-> {
+): Promise<ActionResult<Record<string, string>>> {
   if (!email) {
     return {
       type: "failure",
       status: 400,
       data: { message: "Email or password are missing" },
     };
- }
+  }
 
   const auth = getAuth();
+
+  const actionCodeSettings = {
+    handleCodeInApp: true,
+  };
 
   try {
     // TODO: add email enumeration protection
     // TODO: specify action code settings
     await sendPasswordResetEmail(auth, email);
-    return { type: "success", status: 200};
+    return { type: "success", status: 200 };
   } catch (error: unknown) {
     let errorMessage = "";
     if (typeof error === "string") {
@@ -129,4 +134,57 @@ async function resetPassword(
   }
 }
 
-export { login, register, resetPassword };
+async function deleteAccount(
+  email: string | undefined,
+  password: string | undefined,
+): Promise<ActionResult<Record<string, string>>> {
+  if (!email || !password) {
+    return {
+      type: "failure",
+      status: 400,
+      data: { message: "Email or password are missing" },
+    };
+  }
+
+  const auth = getAuth();
+
+  try {
+    // reauthenticate current user
+    const credential = EmailAuthProvider.credential(email, password);
+    const currentUser = auth.currentUser;
+
+    if (!currentUser) {
+      return {
+        type: "failure",
+        status: 400,
+        data: { message: "No user is currently logged in" },
+      };
+    }
+
+    // TODO: add email enumeration protection
+    await reauthenticateWithCredential(currentUser, credential);
+    
+    // delete user
+    await deleteUser(currentUser);
+
+    return { type: "success", status: 200 };
+  } catch (error: unknown) {
+    return getErrorActionResult(error);
+  }
+}
+
+function getErrorActionResult(
+  error: unknown,
+): ActionResult<Record<string, string>> {
+  let errorMessage = "";
+  if (typeof error === "string") {
+    errorMessage = error;
+  } else if (error instanceof Error) {
+    errorMessage = error.message;
+  } else {
+    errorMessage = "Unknown error";
+  }
+  return { type: "failure", status: 400, data: { message: errorMessage } };
+}
+
+export { login, register, resetPassword, deleteAccount };

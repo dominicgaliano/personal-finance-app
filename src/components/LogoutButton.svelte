@@ -7,7 +7,7 @@
         await signOut(firebaseAuth);
         await fetch("/logout", { method: "POST" });
         await invalidateAll();
-        await goto('/login');
+        await goto("/login");
     };
 </script>
 
