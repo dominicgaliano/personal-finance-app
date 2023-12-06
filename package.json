@@ -28,5 +28,10 @@
 		"vite": "^4.4.2",
 		"vitest": "^0.32.2"
 	},
-	"type": "module"
+	"type": "module",
+	"dependencies": {
+		"firebase": "^10.6.0",
+		"firebase-admin": "^11.11.1",
+		"lodash": "^4.17.21"
+	}
 }
