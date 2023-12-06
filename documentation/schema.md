@@ -45,6 +45,7 @@ Schema:
     description: "", // Firebase type: Text string
     amount: 1234.56, // Firebase type: Floating-point number
     category: "Groceries" | null, // Firebase type: Text string or Null
+    isExpense: true, // Firebase type: Boolean
 }
 ```
 
