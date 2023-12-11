@@ -4,6 +4,7 @@
 
 - Implemented using Vitest
 - Includes Svelte Component Tests and JS/TS Unit Tests.
+- Currently only includes toy examples, but will be used in the future for TTD.
 
 ## Integration Tests:
 

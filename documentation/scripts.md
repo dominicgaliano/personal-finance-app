@@ -33,6 +33,16 @@ firebase emulators:start
 vite dev --open
 ```
 
+# Testing
+
+## Unit Tests
+
+```bash
+npm run test:unit
+# which runs
+vitest
+```
+
 # Deploy
 
 Deploy Firebase functions
