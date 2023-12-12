@@ -1,0 +1,17 @@
+name: Perform ci tests 
+
+on: [push, pull_request]
+
+jobs:
+  vitest_test:
+    name: Run unit tests using vitest
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+      - run: npm ci
+      - run: npm test:unit
+    
