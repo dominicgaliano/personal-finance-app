@@ -18,6 +18,6 @@ jobs:
         run: npm ci
         working-directory: ./functions
       - name: Run all firebase tests
-        run: firebase emulator:exec 'npm test' 
+        run: firebase emulators:exec 'npm test' 
         working-directory: ./functions
     
