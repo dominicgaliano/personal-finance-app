@@ -23,7 +23,7 @@ Schema:
 
 ## User Financial Data
 
-Document Path: data/{user_uid}/transactions/{transaction_id}
+Document Path: data/{user_uid}
 
 Schema:
 
