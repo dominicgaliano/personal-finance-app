@@ -8,12 +8,13 @@
 		"dev:firebase": "firebase emulators:start",
 		"build": "vite build",
 		"preview": "vite preview",
-		"test": "npm run test:integration && npm run test:unit",
+		"test": "npm run test:integration && npm run test:unit && npm run test:firebase-rules",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "eslint .",
 		"test:integration": "playwright test",
-		"test:unit": "vitest"
+		"test:unit": "vitest",
+        "test:firebase-rules": "cd functions && firebase emulators:exec --only firestore \"npm run test\""
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

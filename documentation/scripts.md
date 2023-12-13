@@ -43,6 +43,16 @@ npm run test:unit
 vitest
 ```
 
+##  Firebase security rules
+
+```bash
+npm run test:firebase-rules
+
+# which runs
+cd functions
+firebase emulators:exec 'npm test'
+```
+
 # Deploy
 
 Deploy Firebase functions
