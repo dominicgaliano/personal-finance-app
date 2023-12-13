@@ -8,6 +8,7 @@
     },
     "singleProjectMode": true,
     "firestore": {
+      "rules": "firestore.rules",
       "port": 8080
     },
     "functions": {
@@ -29,5 +30,8 @@
       ],
       "codebase": "default"
     }
-  ]
+  ],
+  "firestore": {
+    "rules": "firestore.rules"
+  }
 }

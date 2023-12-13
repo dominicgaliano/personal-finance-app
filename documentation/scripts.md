@@ -1,5 +1,7 @@
 # Develop locally
 
+_All Firebase CLI functions use firebase-tools@13.0.1_
+
 ## Start Emulator and Vite Server 
 
 ```bash
@@ -55,10 +57,23 @@ firebase emulators:exec 'npm test'
 
 # Deploy
 
-Deploy Firebase functions
+## Deploy everything
+
+```bash
+TBD
+```
+
+## Deploy Firebase functions
 
 - This script transpiles the local Firebase functions from TS to JS and then pushes to Firebase
 
 ```bash
 firebase deploy --only functions
 ```
+
+## Deploy Firestore rules
+
+```bash
+firebase deploy --only firestore
+```
+
