@@ -1,0 +1,23 @@
+name: Perform firebase ci tests 
+
+on: [push, pull_request]
+
+jobs:
+  emulator_test:
+    name: Run firebase tests using firebase emulator
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: "npm"
+      - name: Install Firebase Emulator Suite
+        run: npm install -g firebase-tools
+      - name: Install dependencies
+        run: npm ci
+        working-directory: ./functions
+      - name: Run all firebase tests
+        run: firebase emulators:exec 'npm test' 
+        working-directory: ./functions
+    
