@@ -14,7 +14,7 @@
 		"lint": "eslint .",
 		"test:integration": "playwright test",
 		"test:unit": "vitest",
-        "test:firebase-rules": "cd functions && firebase emulators:exec --only firestore \"npm run test\""
+        "test:firebase-rules": "cd functions && npm run test"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",

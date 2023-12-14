@@ -14,9 +14,10 @@ jobs:
           cache: "npm"
       - name: Install Firebase Emulator Suite
         run: npm install -g firebase-tools
+      - name: Install root directory dependencies
+        run: npm ci
       - name: Install firebase functions dependencies
         run: npm ci
         working-directory: ./functions
       - name: Run all firebase tests
-        run: firebase emulators:exec 'npm test'
-        working-directory: ./functions
+        run: npm run test:firebase-rules

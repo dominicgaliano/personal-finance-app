@@ -9,7 +9,8 @@
     "start": "npm run shell",
     "deploy": "firebase deploy --only functions",
     "logs": "firebase functions:log",
-    "test": "vitest"
+    "test": "firebase emulators:exec --only firestore \"vitest --run\"",
+    "test:watch": "firebase emulators:exec --only firestore \"vitest --watch\""
   },
   "engines": {
     "node": "18"
